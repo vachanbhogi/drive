@@ -20,6 +20,7 @@ script = ExtResource("1_3yknt")
 shape = SubResource("SphereShape3D_ywja5")
 
 [node name="CarMesh" parent="." instance=ExtResource("3_upd77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 top_level = true
 
 [node name="RayCast3D" type="RayCast3D" parent="CarMesh"]

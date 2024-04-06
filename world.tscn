@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsha30slaswrl"]
+
+[ext_resource type="PackedScene" uid="uid://cvh0fwg53wpus" path="res://player/player.tscn" id="1_wkfdp"]
+[ext_resource type="Script" path="res://player/Camera.gd" id="2_kikur"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8n5j7"]
+sky_top_color = Color(0.4, 0.694118, 0.815686, 1)
+sky_horizon_color = Color(0.6, 0.623529, 0.658824, 1)
+sky_energy_multiplier = 1.2
+
+[sub_resource type="Sky" id="Sky_p522b"]
+sky_material = SubResource("ProceduralSkyMaterial_8n5j7")
+
+[sub_resource type="Environment" id="Environment_oobwl"]
+background_mode = 2
+sky = SubResource("Sky_p522b")
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_wkfdp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 4, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 100, 2.08165e-12)
+script = ExtResource("2_kikur")
+offset = Vector3(2.08165e-12, 4, 5)
+target = NodePath("../Player/CarMesh")
+
+[node name="Track" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Track"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+radius = 50.0
+sides = 20
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Track"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+operation = 2
+radius = 35.0
+sides = 20
+
+[node name="Affects" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Affects"]
+transform = Transform3D(0.433013, -0.808013, 0.399519, 0.0173376, 0.450611, 0.892552, -0.901221, -0.37956, 0.209129, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Affects"]
+environment = SubResource("Environment_oobwl")
+
+[editable path="Player"]
