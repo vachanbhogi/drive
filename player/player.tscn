@@ -13,8 +13,7 @@ radius = 1.0
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_dtpcx")
 gravity_scale = 3.0
-linear_damp = 0.01
-angular_damp = 25.0
+angular_damp = 10.0
 script = ExtResource("1_3yknt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
