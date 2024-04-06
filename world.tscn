@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsha30slaswrl"]
+[gd_scene load_steps=9 format=3 uid="uid://bsha30slaswrl"]
 
 [ext_resource type="PackedScene" uid="uid://cvh0fwg53wpus" path="res://player/player.tscn" id="1_wkfdp"]
 [ext_resource type="Script" path="res://player/Camera.gd" id="2_kikur"]
 [ext_resource type="Material" uid="uid://dgmlthm7nc1l4" path="res://assets/test.tres" id="3_8ra6c"]
-[ext_resource type="Curve3D" uid="uid://dv8712ciuw6e6" path="res://tracks/track1.tres" id="3_djlb4"]
+[ext_resource type="Script" path="res://track.gd" id="3_mwd38"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8n5j7"]
 sky_top_color = Color(0.4, 0.694118, 0.815686, 1)
@@ -16,13 +16,19 @@ sky_material = SubResource("ProceduralSkyMaterial_8n5j7")
 [sub_resource type="Environment" id="Environment_oobwl"]
 background_mode = 2
 sky = SubResource("Sky_p522b")
-ambient_light_sky_contribution = 0.0
 tonemap_mode = 2
+
+[sub_resource type="Curve3D" id="Curve3D_5l4t4"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6, 2.08165e-12, 2.08165e-12, 0, 0, 0, 0, 0, 0, 6, 2.08165e-12, 10),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_wkfdp")]
-transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 50, 8, 3)
+transform = Transform3D(-1, 3.48787e-16, -8.74227e-08, 3.48787e-16, 1, -3.48787e-16, 8.74227e-08, -3.48787e-16, -1, 0, 3.6632, 3)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" parent="Player" index="0"]
@@ -46,14 +52,15 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Affects"]
 environment = SubResource("Environment_oobwl")
 
-[node name="Path3D" type="Path3D" parent="."]
-curve = ExtResource("3_djlb4")
+[node name="Track" type="Path3D" parent="."]
+curve = SubResource("Curve3D_5l4t4")
+script = ExtResource("3_mwd38")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
 use_collision = true
 polygon = PackedVector2Array(0, 0, 12, 2.08165e-12, 12, 2, 2.08165e-12, 2)
 mode = 2
-path_node = NodePath("../Path3D")
+path_node = NodePath("../Track")
 path_interval_type = 0
 path_interval = 0.1
 path_simplify_angle = 0.0
@@ -61,7 +68,7 @@ path_rotation = 2
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
-path_joined = true
+path_joined = false
 material = ExtResource("3_8ra6c")
 
 [editable path="Player"]
