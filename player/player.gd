@@ -16,6 +16,7 @@ var turn_input = 0
 @onready var right_wheel = $CarMesh/suv2/wheel_frontRight
 @onready var left_wheel = $CarMesh/suv2/wheel_frontLeft
 	
+
 func _physics_process(_delta):
 	car_mesh.position = position + sphere_offset
 	if ground_ray.is_colliding():
