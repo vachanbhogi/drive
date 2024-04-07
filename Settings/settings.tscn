@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjrte1s50whde"]
+
+[ext_resource type="Texture2D" uid="uid://cbpar7xmv20ow" path="res://assets/ui/icons/gear.svg" id="1_16u5j"]
+[ext_resource type="Script" path="res://Settings/settings.gd" id="1_lr8xx"]
+[ext_resource type="Theme" uid="uid://c18q4bdymtvff" path="res://assets/ui/theme.tres" id="2_frl2j"]
+
+[node name="Settings" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_lr8xx")
+
+[node name="UI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.882353)
+
+[node name="Settings" type="Control" parent="UI/ColorRect"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Music" type="CheckBox" parent="UI/ColorRect/Settings"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = 57.0
+offset_right = 384.0
+offset_bottom = 185.0
+grow_vertical = 2
+theme = ExtResource("2_frl2j")
+text = "Music"
+icon_alignment = 2
+
+[node name="SoundEffects" type="CheckBox" parent="UI/ColorRect/Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 57.0
+offset_right = 192.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_frl2j")
+text = "Sound Effects"
+icon_alignment = 2
+
+[node name="Particles" type="CheckBox" parent="UI/ColorRect/Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 312.0
+offset_top = 57.0
+offset_right = 576.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_frl2j")
+text = "Particles"
+icon_alignment = 2
+
+[node name="Label" type="Label" parent="UI/ColorRect"]
+offset_left = 200.0
+offset_top = 112.0
+offset_right = 1086.0
+offset_bottom = 241.0
+theme = ExtResource("2_frl2j")
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Open_button" type="Button" parent="."]
+offset_left = 1216.0
+offset_right = 1280.0
+offset_bottom = 64.0
+focus_mode = 0
+icon = ExtResource("1_16u5j")
+flat = true
+icon_alignment = 1
+
+[connection signal="toggled" from="UI/ColorRect/Settings/Music" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="UI/ColorRect/Settings/SoundEffects" to="." method="_on_sound_effects_toggled"]
+[connection signal="toggled" from="UI/ColorRect/Settings/Particles" to="." method="_on_particles_toggled"]
+[connection signal="pressed" from="Open_button" to="." method="_on_open_pressed"]

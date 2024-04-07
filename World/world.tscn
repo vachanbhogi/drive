@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsha30slaswrl"]
+[gd_scene load_steps=10 format=3 uid="uid://bsha30slaswrl"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_oxdov"]
 [ext_resource type="PackedScene" uid="uid://o2sqn7rn6p28" path="res://Track/track.tscn" id="1_rd37n"]
 [ext_resource type="PackedScene" uid="uid://cvh0fwg53wpus" path="res://player/player.tscn" id="1_wkfdp"]
 [ext_resource type="Script" path="res://player/Camera.gd" id="2_kikur"]
 [ext_resource type="AudioStream" uid="uid://nwb0b4afq305" path="res://assets/sound/background.wav" id="4_se3x2"]
+[ext_resource type="PackedScene" uid="uid://bjrte1s50whde" path="res://Settings/settings.tscn" id="6_vkmfy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8n5j7"]
 sky_top_color = Color(0.4, 0.694118, 0.815686, 1)
@@ -51,3 +52,5 @@ metadata/_edit_group_ = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_se3x2")
 volume_db = -25.0
+
+[node name="Settings" parent="." instance=ExtResource("6_vkmfy")]
