@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvh0fwg53wpus"]
+[gd_scene load_steps=6 format=3 uid="uid://cvh0fwg53wpus"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_3yknt"]
+[ext_resource type="AudioStream" uid="uid://hfxomr7euub8" path="res://assets/sound/engine.wav" id="3_mptek"]
 [ext_resource type="PackedScene" uid="uid://b7to78d8cuybh" path="res://assets/cars/suv.glb" id="3_upd77"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dtpcx"]
@@ -25,3 +26,7 @@ top_level = true
 
 [node name="RayCast3D" type="RayCast3D" parent="CarMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_mptek")
+unit_size = 2.5

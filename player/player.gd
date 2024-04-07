@@ -10,6 +10,9 @@ var body_tilt = 50
 var speed_input = 0
 var turn_input = 0
 
+# New variables for audio
+@onready var audio_stream_player = $AudioStreamPlayer3D
+
 @onready var car_mesh = $CarMesh
 @onready var body_mesh = $CarMesh/suv2
 @onready var ground_ray = $CarMesh/RayCast3D
@@ -30,7 +33,6 @@ func _process(delta):
 	right_wheel.rotation.y = turn_input
 	left_wheel.rotation.y = turn_input
 
-	
 	if linear_velocity.length() > turn_stop_limit:
 		var new_basis = car_mesh.global_transform.basis.rotated(car_mesh.global_transform.basis.y, turn_input)
 		car_mesh.global_transform.basis = car_mesh.global_transform.basis.slerp(new_basis, turn_speed * delta)
@@ -41,6 +43,15 @@ func _process(delta):
 		var n = ground_ray.get_collision_normal()
 		var xform = align_with_y(car_mesh.global_transform, n)
 		car_mesh.global_transform = car_mesh.global_transform.interpolate_with(xform, 10.0 * delta)
+
+	# Play audio based on speed
+	var speed_ratio = linear_velocity.length() / acceleration
+	audio_stream_player.pitch_scale = speed_ratio
+	if linear_velocity.length() > 0:
+		if !audio_stream_player.playing:
+			audio_stream_player.play()
+	else:
+		audio_stream_player.stop()
 
 func align_with_y(xform, new_y):
 	xform.basis.y = new_y
