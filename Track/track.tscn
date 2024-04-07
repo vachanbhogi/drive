@@ -17,10 +17,10 @@ uv1_triplanar = true
 uv2_triplanar = true
 
 [node name="Track" type="Node"]
+script = ExtResource("1_axdhv")
 
 [node name="Path" type="Path3D" parent="."]
 curve = SubResource("Curve3D_5l4t4")
-script = ExtResource("1_axdhv")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
 use_collision = true

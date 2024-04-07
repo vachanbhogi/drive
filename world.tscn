@@ -28,7 +28,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Affects"]
 environment = SubResource("Environment_oobwl")
 
-[node name="Track" parent="." instance=ExtResource("1_rd37n")]
+[node name="Track" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_rd37n")]
+player = NodePath("../Player")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 100, 2.08165e-12)
