@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://o2sqn7rn6p28"]
 
 [ext_resource type="Script" path="res://Track/track.gd" id="1_axdhv"]
-[ext_resource type="Texture2D" uid="uid://bamplswrebe6s" path="res://assets/asphalt_road_3.jpg" id="2_6jju3"]
-[ext_resource type="Material" uid="uid://buh7sjy6kls2d" path="res://assets/pavement.tres" id="3_co62y"]
+[ext_resource type="Texture2D" uid="uid://bamplswrebe6s" path="res://assets/textures/asphalt_road.jpg" id="2_nepl0"]
+[ext_resource type="Material" uid="uid://buh7sjy6kls2d" path="res://assets/textures/pavement.tres" id="3_ioev4"]
 
 [sub_resource type="Curve3D" id="Curve3D_5l4t4"]
 _data = {
@@ -12,7 +12,7 @@ _data = {
 point_count = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wsde5"]
-albedo_texture = ExtResource("2_6jju3")
+albedo_texture = ExtResource("2_nepl0")
 uv1_triplanar = true
 uv2_triplanar = true
 
@@ -50,7 +50,7 @@ path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
-material = ExtResource("3_co62y")
+material = ExtResource("3_ioev4")
 
 [node name="Left" type="CSGPolygon3D" parent="."]
 use_collision = true
@@ -65,4 +65,4 @@ path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
-material = ExtResource("3_co62y")
+material = ExtResource("3_ioev4")
