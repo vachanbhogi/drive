@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckt0rngv4as03"]
+
+[ext_resource type="Script" path="res://Title/title.gd" id="1_mwsnt"]
+[ext_resource type="Theme" uid="uid://c18q4bdymtvff" path="res://assets/ui/theme.tres" id="2_s24mu"]
+[ext_resource type="Texture2D" uid="uid://cbpar7xmv20ow" path="res://assets/ui/icons/gear.svg" id="3_xrg62"]
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mwsnt")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.462745, 0.654902, 0.505882, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 112.0
+offset_right = 1078.0
+offset_bottom = 241.0
+theme = ExtResource("2_s24mu")
+theme_override_font_sizes/font_size = 128
+text = "ROADSCAPES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 440.0
+offset_right = 1048.0
+offset_bottom = 587.0
+theme = ExtResource("2_s24mu")
+text = "PLAY"
+
+[node name="Settings" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1176.0
+offset_top = 32.0
+offset_right = 1240.0
+offset_bottom = 96.0
+icon = ExtResource("3_xrg62")
+flat = true
+icon_alignment = 1
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c18q4bdymtvff"]
+
+[ext_resource type="FontFile" uid="uid://bisnc1f04kqlp" path="res://assets/ui/fonts/Teko-VariableFont_wght.ttf" id="1_kpuk6"]
+
+[resource]
+default_font = ExtResource("1_kpuk6")
+default_font_size = 32
