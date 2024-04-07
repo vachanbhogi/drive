@@ -51,7 +51,7 @@ func _process(delta):
 	var speed_ratio = sqrt(linear_velocity_length_squared) / acceleration
 	audio_stream_player.pitch_scale = speed_ratio
 	if linear_velocity_length_squared > 0:
-		if !audio_stream_player.is_playing():
+		if !audio_stream_player.is_playing() and Global.sound_effects:
 			audio_stream_player.play()
 	else:
 		audio_stream_player.stop()

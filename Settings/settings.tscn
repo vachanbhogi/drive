@@ -9,7 +9,6 @@ process_mode = 3
 script = ExtResource("1_lr8xx")
 
 [node name="UI" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.882353)
+color = Color(0.309804, 0.435294, 0.517647, 1)
 
 [node name="Settings" type="Control" parent="UI/ColorRect"]
 layout_mode = 1
@@ -36,53 +35,50 @@ offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Music" type="CheckBox" parent="UI/ColorRect/Settings"]
+[node name="Music" type="Button" parent="UI/ColorRect/Settings"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 64.0
-offset_top = 57.0
-offset_right = 384.0
-offset_bottom = 185.0
+offset_left = 16.0
+offset_top = 89.0
+offset_right = 336.0
+offset_bottom = 217.0
 grow_vertical = 2
 theme = ExtResource("2_frl2j")
 text = "Music"
-icon_alignment = 2
 
-[node name="SoundEffects" type="CheckBox" parent="UI/ColorRect/Settings"]
+[node name="SoundEffects" type="Button" parent="UI/ColorRect/Settings"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = 57.0
-offset_right = 192.0
-offset_bottom = 185.0
+offset_left = -160.0
+offset_top = 89.0
+offset_right = 160.0
+offset_bottom = 217.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_frl2j")
 text = "Sound Effects"
-icon_alignment = 2
 
-[node name="Particles" type="CheckBox" parent="UI/ColorRect/Settings"]
+[node name="Particles" type="Button" parent="UI/ColorRect/Settings"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 312.0
-offset_top = 57.0
-offset_right = 576.0
-offset_bottom = 185.0
-grow_horizontal = 2
+offset_left = -352.0
+offset_top = 97.0
+offset_right = -32.0
+offset_bottom = 225.0
+grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("2_frl2j")
 text = "Particles"
-icon_alignment = 2
 
 [node name="Label" type="Label" parent="UI/ColorRect"]
 offset_left = 200.0
@@ -104,7 +100,7 @@ icon = ExtResource("1_16u5j")
 flat = true
 icon_alignment = 1
 
-[connection signal="toggled" from="UI/ColorRect/Settings/Music" to="." method="_on_music_toggled"]
-[connection signal="toggled" from="UI/ColorRect/Settings/SoundEffects" to="." method="_on_sound_effects_toggled"]
-[connection signal="toggled" from="UI/ColorRect/Settings/Particles" to="." method="_on_particles_toggled"]
+[connection signal="pressed" from="UI/ColorRect/Settings/Music" to="." method="_on_music_toggled"]
+[connection signal="pressed" from="UI/ColorRect/Settings/SoundEffects" to="." method="_on_sound_effects_toggled"]
+[connection signal="pressed" from="UI/ColorRect/Settings/Particles" to="." method="_on_particles_toggled"]
 [connection signal="pressed" from="Open_button" to="." method="_on_open_pressed"]

@@ -6,10 +6,7 @@ extends CanvasLayer
 var opened := false
 
 func _ready() -> void:
-	# Initialize UI elements based on global settings
-	$UI/ColorRect/Settings/Music.button_pressed = Global.music
-	$UI/ColorRect/Settings/SoundEffects.button_pressed = Global.sound_effects
-	$UI/ColorRect/Settings/Particles.button_pressed = Global.particles
+	toggle_settings()
 
 func _on_open_pressed() -> void:
 	toggle_settings()
@@ -24,16 +21,22 @@ func toggle_settings() -> void:
 		ui.visible = true
 		get_tree().paused = true
 		open_button.icon = load("res://assets/ui/icons/close.svg")
+		$UI/ColorRect/Settings/Music.modulate = "93df9f" if Global.music else "ffffff"
+		$UI/ColorRect/Settings/SoundEffects.modulate ="93df9f" if Global.sound_effects else "ffffff"
+		$UI/ColorRect/Settings/Particles.modulate = "93df9f" if Global.particles else "ffffff"
 	else:
 		ui.visible = false
 		get_tree().paused = false
 		open_button.icon = load("res://assets/ui/icons/gear.svg")
 
-func _on_music_toggled(button_pressed: bool) -> void:
+func _on_music_toggled() -> void:
 	Global.toggle_music()
+	$UI/ColorRect/Settings/Music.modulate = "93df9f" if Global.music else "ffffff"
 
-func _on_sound_effects_toggled(button_pressed: bool) -> void:
+func _on_sound_effects_toggled() -> void:
 	Global.togglet_sound_effects()
+	$UI/ColorRect/Settings/SoundEffects.modulate ="93df9f" if Global.sound_effects else "ffffff"
 
-func _on_particles_toggled(button_pressed: bool) -> void:
+func _on_particles_toggled() -> void:
 	Global.toggle_particles()
+	$UI/ColorRect/Settings/Particles.modulate = "93df9f" if Global.particles else "ffffff"
