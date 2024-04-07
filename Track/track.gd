@@ -6,7 +6,7 @@ var direction = Vector3.FORWARD
 
 func _ready():
 	add_child(timer)
-	timer.wait_time = 1.5
+	timer.wait_time = 1.75
 	timer.connect("timeout", Callable(self, "_on_Timer_timeout"))
 	timer.start()
 

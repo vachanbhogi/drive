@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://o2sqn7rn6p28"]
+
+[ext_resource type="Script" path="res://Track/track.gd" id="1_axdhv"]
+[ext_resource type="Texture2D" uid="uid://bamplswrebe6s" path="res://assets/asphalt_road_3.jpg" id="2_6jju3"]
+[ext_resource type="Material" uid="uid://buh7sjy6kls2d" path="res://assets/pavement.tres" id="3_co62y"]
+
+[sub_resource type="Curve3D" id="Curve3D_5l4t4"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.08165e-12, -2, -5, 0, 0, 0, 0, 0, 0, 2.08165e-12, -2, 5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wsde5"]
+albedo_texture = ExtResource("2_6jju3")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[node name="Track" type="Node"]
+
+[node name="Path" type="Path3D" parent="."]
+curve = SubResource("Curve3D_5l4t4")
+script = ExtResource("1_axdhv")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(-8, 2.08165e-12, 8, 2.08165e-12, 8, -2, -8, -2)
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_wsde5")
+
+[node name="Right" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(-8, 1, -7, 1, -7, 2.08165e-12, -8, 2.08165e-12)
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("3_co62y")
+
+[node name="Left" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(7, 1, 8, 1, 8, 2.08165e-12, 7, 2.08165e-12)
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("3_co62y")

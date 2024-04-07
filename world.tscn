@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsha30slaswrl"]
+[gd_scene load_steps=7 format=3 uid="uid://bsha30slaswrl"]
 
+[ext_resource type="PackedScene" uid="uid://o2sqn7rn6p28" path="res://Track/track.tscn" id="1_rd37n"]
 [ext_resource type="PackedScene" uid="uid://cvh0fwg53wpus" path="res://player/player.tscn" id="1_wkfdp"]
 [ext_resource type="Script" path="res://player/Camera.gd" id="2_kikur"]
-[ext_resource type="Material" uid="uid://dgmlthm7nc1l4" path="res://assets/test.tres" id="3_8ra6c"]
-[ext_resource type="Script" path="res://track.gd" id="3_mwd38"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8n5j7"]
 sky_top_color = Color(0.4, 0.694118, 0.815686, 1)
@@ -18,20 +17,7 @@ background_mode = 2
 sky = SubResource("Sky_p522b")
 tonemap_mode = 2
 
-[sub_resource type="Curve3D" id="Curve3D_5l4t4"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.08165e-12, -2, -5, 0, 0, 0, 0, 0, 0, 2.08165e-12, -2, 5),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
-
 [node name="World" type="Node3D"]
-
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 100, 2.08165e-12)
-script = ExtResource("2_kikur")
-offset = Vector3(2.08165e-12, 3, 5)
-target = NodePath("../Player/CarMesh")
 
 [node name="Affects" type="Node" parent="."]
 
@@ -42,24 +28,13 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Affects"]
 environment = SubResource("Environment_oobwl")
 
-[node name="Track" type="Path3D" parent="."]
-curve = SubResource("Curve3D_5l4t4")
-script = ExtResource("3_mwd38")
+[node name="Track" parent="." instance=ExtResource("1_rd37n")]
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
-use_collision = true
-polygon = PackedVector2Array(-6, 2.08165e-12, 6, 2.08165e-12, 6, -2, -6, -2)
-mode = 2
-path_node = NodePath("../Track")
-path_interval_type = 0
-path_interval = 0.1
-path_simplify_angle = 0.0
-path_rotation = 2
-path_local = false
-path_continuous_u = true
-path_u_distance = 1.0
-path_joined = false
-material = ExtResource("3_8ra6c")
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 100, 2.08165e-12)
+script = ExtResource("2_kikur")
+offset = Vector3(2.08165e-12, 3, 5)
+target = NodePath("../Player/CarMesh")
 
 [node name="Player" parent="." instance=ExtResource("1_wkfdp")]
 metadata/_edit_group_ = true
