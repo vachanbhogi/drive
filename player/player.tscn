@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvh0fwg53wpus"]
+[gd_scene load_steps=10 format=3 uid="uid://cvh0fwg53wpus"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_3yknt"]
+[ext_resource type="SphereMesh" uid="uid://s6gpd4nthoj5" path="res://assets/smoke/Smoke.tres" id="3_5p1ij"]
 [ext_resource type="AudioStream" uid="uid://hfxomr7euub8" path="res://assets/sound/engine.wav" id="3_mptek"]
 [ext_resource type="PackedScene" uid="uid://b7to78d8cuybh" path="res://assets/cars/suv.glb" id="3_upd77"]
 
@@ -9,6 +10,21 @@ bounce = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ywja5"]
 radius = 1.0
+
+[sub_resource type="Gradient" id="Gradient_ge0lg"]
+offsets = PackedFloat32Array(0, 0.302083, 0.958333)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.627451, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0dh8e"]
+gradient = SubResource("Gradient_ge0lg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yxbj5"]
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+spread = 0.0
+gravity = Vector3(2.08165e-12, 1, 2.08165e-12)
+color_ramp = SubResource("GradientTexture1D_0dh8e")
 
 [node name="Player" type="RigidBody3D"]
 collision_layer = 2
@@ -26,6 +42,15 @@ top_level = true
 
 [node name="RayCast3D" type="RayCast3D" parent="CarMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="CarMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1, 2.08165e-12)
+emitting = false
+amount = 50
+lifetime = 0.4
+visibility_aabb = AABB(-1, -1, -1, 2, 2, 2)
+process_material = SubResource("ParticleProcessMaterial_yxbj5")
+draw_pass_1 = ExtResource("3_5p1ij")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_mptek")

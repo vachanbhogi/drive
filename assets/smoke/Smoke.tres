@@ -1,0 +1,11 @@
+[gd_resource type="SphereMesh" load_steps=2 format=3 uid="uid://s6gpd4nthoj5"]
+
+[sub_resource type="StandardMaterial3D" id="6"]
+transparency = 1
+vertex_color_use_as_albedo = true
+disable_receive_shadows = true
+
+[resource]
+material = SubResource("6")
+radius = 0.2
+height = 0.4
