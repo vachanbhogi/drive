@@ -17,7 +17,12 @@ sky_material = SubResource("ProceduralSkyMaterial_8n5j7")
 [sub_resource type="Environment" id="Environment_oobwl"]
 background_mode = 2
 sky = SubResource("Sky_p522b")
-tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.32549, 0.619608, 0.482353, 1)
+fog_aerial_perspective = 0.078
+adjustment_enabled = true
+adjustment_contrast = 1.2
+adjustment_saturation = 1.2
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_oxdov")
