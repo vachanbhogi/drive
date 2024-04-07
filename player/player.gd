@@ -14,10 +14,11 @@ var turn_input = 0
 @onready var car_mesh = $CarMesh
 @onready var body_mesh = $CarMesh/suv2
 @onready var ground_ray = $CarMesh/RayCast3D
-@onready var right_wheel = $CarMesh/suv2/wheel_frontRight
-@onready var left_wheel = $CarMesh/suv2/wheel_frontLeft
 @onready var audio_stream_player = $AudioStreamPlayer3D
-@onready var particles = $CarMesh/GPUParticles3D
+var particles: GPUParticles3D = null
+
+func _ready():
+	particles = $CarMesh/GPUParticles3D
 
 func _physics_process(_delta):
 	car_mesh.position = position + sphere_offset
@@ -25,18 +26,14 @@ func _physics_process(_delta):
 		apply_central_force(-car_mesh.global_transform.basis.z * speed_input)
 
 func _process(delta):
-	if not ground_ray.is_colliding():
-		particles.emitting = false
+	if not ground_ray.is_colliding() or particles == null:
 		return
 
 	speed_input = Input.get_axis("brake", "accelerate") * acceleration
 	turn_input = Input.get_axis("steer_right", "steer_left") * deg_to_rad(steering)
-	right_wheel.rotation.y = turn_input
-	left_wheel.rotation.y = turn_input
-	
 	var linear_velocity_length_squared = linear_velocity.length_squared()
 	var d = linear_velocity.normalized().dot(-car_mesh.transform.basis.z)
-	particles.emitting = linear_velocity_length_squared > 16.0 and d < 0.95
+	particles.emitting = linear_velocity_length_squared > 16.0 and d < 0.95 and Global.particles
 
 	if linear_velocity_length_squared > turn_stop_limit * turn_stop_limit:
 		var new_basis = car_mesh.global_transform.basis.rotated(car_mesh.global_transform.basis.y, turn_input)
@@ -54,7 +51,7 @@ func _process(delta):
 	var speed_ratio = sqrt(linear_velocity_length_squared) / acceleration
 	audio_stream_player.pitch_scale = speed_ratio
 	if linear_velocity_length_squared > 0:
-		if !audio_stream_player.playing:
+		if !audio_stream_player.is_playing():
 			audio_stream_player.play()
 	else:
 		audio_stream_player.stop()

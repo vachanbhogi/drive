@@ -17,9 +17,15 @@ var target_color = colors[1]
 var transition_duration = 30.0
 var transition_timer = 0.0
 
-
 func _ready():
-	audio.play()
+	Global.connect("music_changed", update_audio)
+	update_audio()
+
+func update_audio() -> void:
+	if Global.music:
+		audio.play()
+	else:
+		audio.stop()
 
 func _process(delta: float) -> void:
 	if transition_timer < transition_duration:

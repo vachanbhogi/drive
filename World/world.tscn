@@ -50,6 +50,7 @@ target = NodePath("../Player/CarMesh")
 metadata/_edit_group_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("4_se3x2")
 volume_db = -25.0
 
