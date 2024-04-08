@@ -1,0 +1,140 @@
+[gd_scene load_steps=13 format=3 uid="uid://blmd78i6ap00"]
+
+[ext_resource type="Texture2D" uid="uid://bamplswrebe6s" path="res://assets/textures/asphalt_road.jpg" id="1_8dm6c"]
+[ext_resource type="Material" uid="uid://buh7sjy6kls2d" path="res://assets/textures/pavement.tres" id="2_8o08k"]
+[ext_resource type="PackedScene" uid="uid://b7to78d8cuybh" path="res://assets/cars/suv.glb" id="3_idhf8"]
+[ext_resource type="SphereMesh" uid="uid://s6gpd4nthoj5" path="res://assets/smoke/Smoke.tres" id="4_xac7l"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_33qgb"]
+sky_top_color = Color(0.4, 0.694118, 0.815686, 1)
+sky_horizon_color = Color(0.6, 0.623529, 0.658824, 1)
+sky_energy_multiplier = 1.2
+
+[sub_resource type="Sky" id="Sky_p522b"]
+sky_material = SubResource("ProceduralSkyMaterial_33qgb")
+
+[sub_resource type="Environment" id="Environment_aclgr"]
+background_mode = 2
+sky = SubResource("Sky_p522b")
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.286275, 0.866667, 1, 1)
+fog_aerial_perspective = 0.078
+adjustment_enabled = true
+adjustment_contrast = 1.2
+adjustment_saturation = 1.2
+
+[sub_resource type="Curve3D" id="Curve3D_ef4km"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.08165e-12, 2.08165e-12, 5, 0, 0, 0, 0, 0, 0, 2.08165e-12, 2.08165e-12, -5, 5, 2.08165e-12, 2.08165e-12, 0, 0, 0, -27, 2.08165e-12, -40),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wsde5"]
+albedo_texture = ExtResource("1_8dm6c")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="Gradient" id="Gradient_ge0lg"]
+offsets = PackedFloat32Array(0, 0.302083, 0.958333)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.627451, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0dh8e"]
+gradient = SubResource("Gradient_ge0lg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yxbj5"]
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+spread = 0.0
+gravity = Vector3(2.08165e-12, 1, 2.08165e-12)
+color_ramp = SubResource("GradientTexture1D_0dh8e")
+
+[node name="Stage" type="Node3D"]
+
+[node name="Affects" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Affects"]
+transform = Transform3D(0.433013, -0.808012, 0.399519, 0.0173376, 0.450611, 0.892552, -0.901221, -0.37956, 0.209129, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Affects"]
+environment = SubResource("Environment_aclgr")
+
+[node name="Track" type="Node" parent="."]
+
+[node name="Path" type="Path3D" parent="Track"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+curve = SubResource("Curve3D_ef4km")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+use_collision = true
+polygon = PackedVector2Array(-8, 2.08165e-12, 8, 2.08165e-12, 8, -2, -8, -2)
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_wsde5")
+
+[node name="Right" type="CSGPolygon3D" parent="Track"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+use_collision = true
+polygon = PackedVector2Array(-8, 1, -7, 1, -7, 2.08165e-12, -8, 2.08165e-12)
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("2_8o08k")
+
+[node name="Left" type="CSGPolygon3D" parent="Track"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+use_collision = true
+polygon = PackedVector2Array(7, 1, 8, 1, 8, 2.08165e-12, 7, 2.08165e-12)
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("2_8o08k")
+
+[node name="CarMesh" parent="." instance=ExtResource("3_idhf8")]
+transform = Transform3D(0.941801, -0.132361, 0.309017, 0.139173, 0.990268, -3.48787e-16, -0.30601, 0.0430069, 0.951057, 0, 2.22506, -1.66852)
+top_level = true
+
+[node name="RayCast3D" type="RayCast3D" parent="CarMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="CarMesh"]
+transform = Transform3D(1, 2.54055e-09, -1.13402e-08, -4.62041e-09, 1, 6.2739e-09, 4.69967e-08, 6.11543e-09, 1, 0.492843, -0.921589, 1.65583)
+amount = 50
+lifetime = 0.4
+visibility_aabb = AABB(-1, -1, -1, 2, 2, 2)
+process_material = SubResource("ParticleProcessMaterial_yxbj5")
+draw_pass_1 = ExtResource("4_xac7l")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.885161, -0.00525897, 0.465256, -0.0101998, 0.999476, 0.0307028, -0.465174, -0.0319225, 0.884644, 2.78022, 3.00573, -0.360953)
+current = true
+fov = 100.0
