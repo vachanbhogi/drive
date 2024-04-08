@@ -5,14 +5,28 @@ extends Node
 var direction = Vector3.FORWARD
 const MAX_POINTS = 5
 const ADD_THRESHOLD_SQUARED = 15000
+const RESET_THRESHOLD_Y = -3  # Adjust this value as needed
 const BATCH_SIZE = 3
 
 @onready var path: Path3D = $Path
 
 func _physics_process(_delta: float) -> void:
+	if not player:
+		return
+		
 	var lastPointCount = path.curve.get_point_count()
+	
 	if player.global_position.distance_squared_to(path.curve.get_point_position(lastPointCount - 1)) < ADD_THRESHOLD_SQUARED:
 		_add_road()
+
+	if player.global_position.y < RESET_THRESHOLD_Y:
+		reset_track()
+
+func reset_track():
+	path.curve.clear_points()
+	path.curve.add_point(Vector3(0, -2, -5))
+	path.curve.add_point(Vector3(0, -2, 5))
+	direction = Vector3.FORWARD
 
 func _add_road():
 	var excessPoints = path.curve.get_point_count() - MAX_POINTS

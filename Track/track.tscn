@@ -16,7 +16,7 @@ albedo_texture = ExtResource("2_nepl0")
 uv1_triplanar = true
 uv2_triplanar = true
 
-[node name="Track" type="Node"]
+[node name="Track" type="Node3D"]
 script = ExtResource("1_axdhv")
 
 [node name="Path" type="Path3D" parent="."]

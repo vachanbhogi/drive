@@ -1,7 +1,7 @@
 extends RigidBody3D
 
 var sphere_offset = Vector3.DOWN
-var acceleration = 42.0
+var acceleration = 420.0
 var steering = 19.0
 var turn_speed = 4.0
 var turn_stop_limit = 0.75
@@ -10,11 +10,13 @@ var body_tilt = 35
 var speed_input = 0
 var turn_input = 0
 
-# Cache frequently accessed nodes
 @onready var car_mesh = $CarMesh
 @onready var body_mesh = $CarMesh/suv2
 @onready var ground_ray = $CarMesh/RayCast3D
 @onready var audio_stream_player = $AudioStreamPlayer3D
+
+@onready var init_pos = global_transform
+
 var particles: GPUParticles3D = null
 
 func _ready():
@@ -22,8 +24,21 @@ func _ready():
 
 func _physics_process(_delta):
 	car_mesh.position = position + sphere_offset
+	
+	if position.y < -3:
+		reset_player()
+		return
+	
 	if ground_ray.is_colliding():
 		apply_central_force(-car_mesh.global_transform.basis.z * speed_input)
+
+func reset_player():
+	linear_velocity = Vector3.ZERO
+	position = Vector3.ZERO
+	global_rotation = Vector3.ZERO
+	car_mesh.global_rotation = Vector3.ZERO
+	$CarMesh/suv2.global_rotation = Vector3.ZERO
+	get_parent().score = 0
 
 func _process(delta):
 	if not ground_ray.is_colliding() or particles == null:
@@ -47,7 +62,6 @@ func _process(delta):
 		var xform = align_with_y(car_mesh.global_transform, n)
 		car_mesh.global_transform = car_mesh.global_transform.interpolate_with(xform, 10.0 * delta)
 
-	# Play audio based on speed
 	var speed_ratio = sqrt(linear_velocity_length_squared) / acceleration
 	audio_stream_player.pitch_scale = speed_ratio
 	if linear_velocity_length_squared > 0:
