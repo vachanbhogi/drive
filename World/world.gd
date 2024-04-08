@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var audio = $AudioStreamPlayer
 @onready var world = $Affects/WorldEnvironment
+@onready var scoreboard = $Settings/Score
 
 var colors = [
 	Color.html('539e7b'),
@@ -16,6 +17,8 @@ var target_color = colors[1]
 
 var transition_duration = 30.0
 var transition_timer = 0.0
+
+var score = 0
 
 func _ready():
 	Global.connect("music_changed", update_audio)
@@ -43,3 +46,9 @@ func _process(delta: float) -> void:
 		current_color_index = (current_color_index + 1) % colors.size()
 		current_fog_color = target_color
 		target_color = colors[current_color_index]
+	
+	# Update the scoreboard
+	score += delta * 2
+	var seconds_str = str(int(score)).pad_zeros(6)
+	scoreboard.text = seconds_str
+
